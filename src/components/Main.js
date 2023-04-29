@@ -4,7 +4,17 @@ import ImagePopup from './ImagePopup.js';
 import Card from './Card.js';
 import { api } from '../utils/api.js';
 
-function Main(props) {
+function Main({
+  onEditAvatar,
+  onEditProfile,
+  onAddPlace,
+  onCardClick,
+  onClose,
+  isEditAvatarPopupOpen,
+  isEditProfilePopupOpen,
+  isAddPlacePopupOpen,
+  selectedCardImg
+}) {
   const [userName, setUserName] = React.useState();
   const [userDescription, setUserDescription] = React.useState();
   const [userAvatar, setUserAvatar] = React.useState();
@@ -38,20 +48,20 @@ function Main(props) {
       <section className="profile">
         <div className="profile__img-container">
           <div className="profile__img" style={{ backgroundImage: `url(${userAvatar})` }}></div>
-          <button className="profile__img-edit-button" onClick={props.onEditAvatar}></button>
+          <button className="profile__img-edit-button" onClick={onEditAvatar}></button>
         </div>
         <div className="profile__info">
           <h1 className="profile__name">{userName}</h1>
-          <button aria-label="редактировать профиль" type="button" className="profile__edit-button" onClick={props.onEditProfile}></button>
+          <button aria-label="редактировать профиль" type="button" className="profile__edit-button" onClick={onEditProfile}></button>
           <p className="profile__specialty">{userDescription}</p>
         </div>
-        <button aria-label="добавить место" type="button" className="profile__add-button" onClick={props.onAddPlace}></button>
+        <button aria-label="добавить место" type="button" className="profile__add-button" onClick={onAddPlace}></button>
       </section>
 
       <section className="places">
         <ul className="places__container">
           {cards.map((el) => (
-            <Card key={el._id} imgUrl={el.link} name={el.name} likesAmount={el.likes.length} onCardClick={props.onCardClick} />
+            <Card key={el._id} imgUrl={el.link} name={el.name} likesAmount={el.likes.length} onCardClick={onCardClick} />
           ))}
         </ul>
       </section>
@@ -59,8 +69,8 @@ function Main(props) {
       <PopupWithForm
         name="avatarUpdateForm"
         title="Обновить аватар"
-        isOpen={props.isEditAvatarPopupOpen}
-        onClose={props.onClose}>
+        isOpen={isEditAvatarPopupOpen}
+        onClose={onClose}>
         <fieldset className="popup__input-container">
           <input
             type="url"
@@ -77,8 +87,8 @@ function Main(props) {
       <PopupWithForm
         name="profileEditForm"
         title="Редактировать профиль"
-        isOpen={props.isEditProfilePopupOpen}
-        onClose={props.onClose}>
+        isOpen={isEditProfilePopupOpen}
+        onClose={onClose}>
         <fieldset className="popup__input-container">
               <input
                 type="text"
@@ -109,8 +119,8 @@ function Main(props) {
       <PopupWithForm
         name="placeAddForm"
         title="Новое место"
-        isOpen={props.isAddPlacePopupOpen}
-        onClose={props.onClose}>
+        isOpen={isAddPlacePopupOpen}
+        onClose={onClose}>
         <fieldset className="popup__input-container">
               <input
                 type="text"
@@ -136,7 +146,7 @@ function Main(props) {
             </fieldset>
       </PopupWithForm>
 
-      <ImagePopup selectedCardImg={props.selectedCardImg} onClose={props.onClose}/>
+      <ImagePopup selectedCardImg={selectedCardImg} onClose={onClose}/>
 
       <div id="popupConfirmDelCard" className="popup">
         <div className="popup__container">
