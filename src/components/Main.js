@@ -21,7 +21,7 @@ function Main(props) {
       .catch((err) => {
         alert(err);
       });
-  });
+  }, []);
 
   React.useEffect(() => {
     api.getInitialCards()
