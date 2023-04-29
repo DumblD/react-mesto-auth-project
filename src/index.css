@@ -38,7 +38,6 @@
 @import url(./blocks/popup/_change/popup_change_opacity.css);
 @import url(./blocks/popup/__form/popup__form.css);
 @import url(./blocks/popup/__title/popup__title.css);
-@import url(./blocks/popup/__input-container/popup__input-container.css);
 @import url(./blocks/popup/__input/popup__input.css);
 @import url(./blocks/popup/__input/_type/popup__input_type_error.css);
 @import url(./blocks/popup/__error/popup__error.css);

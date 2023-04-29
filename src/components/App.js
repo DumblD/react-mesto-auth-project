@@ -63,17 +63,15 @@ function App() {
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           submitButtonText="Сохранить">
-          <fieldset className="popup__input-container">
-            <input
-              type="url"
-              name="avatarLink"
-              id="avatarLink"
-              className="popup__input popup__input_el_avatar-link"
-              required
-              placeholder="Ссылка на картинку"
-            />
-            <span className="popup__error avatarLink-error"></span>
-          </fieldset>
+          <input
+            type="url"
+            name="avatarLink"
+            id="avatarLink"
+            className="popup__input popup__input_el_avatar-link"
+            required
+            placeholder="Ссылка на картинку"
+          />
+          <span className="popup__error avatarLink-error"></span>
         </PopupWithForm>
 
         <PopupWithForm
@@ -82,31 +80,29 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           submitButtonText="Сохранить">
-          <fieldset className="popup__input-container">
-            <input
-              type="text"
-              name="name"
-              id="name"
-              className="popup__input popup__input_el_name"
-              required
-              minLength="2"
-              maxLength="40"
-              placeholder="Введите имя"
-            />
-            <span className="popup__error name-error"></span>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            className="popup__input popup__input_el_name"
+            required
+            minLength="2"
+            maxLength="40"
+            placeholder="Введите имя"
+          />
+          <span className="popup__error name-error"></span>
 
-            <input
-              type="text"
-              name="specialty"
-              id="specialty"
-              className="popup__input popup__input_el_specialty"
-              required
-              minLength="2"
-              maxLength="200"
-              placeholder="Введите информацию о себе"
-            />
-            <span className="popup__error specialty-error"></span>
-          </fieldset>
+          <input
+            type="text"
+            name="specialty"
+            id="specialty"
+            className="popup__input popup__input_el_specialty"
+            required
+            minLength="2"
+            maxLength="200"
+            placeholder="Введите информацию о себе"
+          />
+          <span className="popup__error specialty-error"></span>
         </PopupWithForm>
 
         <PopupWithForm
@@ -115,29 +111,27 @@ function App() {
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           submitButtonText="Создать">
-          <fieldset className="popup__input-container">
-            <input
-              type="text"
-              name="placeTitle"
-              id="placeTitle"
-              className="popup__input popup__input_el_place-title"
-              required
-              minLength="2"
-              maxLength="30"
-              placeholder="Название"
-            />
-            <span className="popup__error placeTitle-error"></span>
+          <input
+            type="text"
+            name="placeTitle"
+            id="placeTitle"
+            className="popup__input popup__input_el_place-title"
+            required
+            minLength="2"
+            maxLength="30"
+            placeholder="Название"
+          />
+          <span className="popup__error placeTitle-error"></span>
 
-            <input
-              type="url"
-              name="placeLink"
-              id="placeLink"
-              className="popup__input popup__input_el_place-link"
-              required
-              placeholder="Ссылка на картинку"
-            />
-            <span className="popup__error placeLink-error"></span>
-          </fieldset>
+          <input
+            type="url"
+            name="placeLink"
+            id="placeLink"
+            className="popup__input popup__input_el_place-link"
+            required
+            placeholder="Ссылка на картинку"
+          />
+          <span className="popup__error placeLink-error"></span>
         </PopupWithForm>
 
         <ImagePopup selectedCardImg={selectedCardImg} onClose={closeAllPopups} />
