@@ -70,7 +70,8 @@ function Main({
         name="avatarUpdateForm"
         title="Обновить аватар"
         isOpen={isEditAvatarPopupOpen}
-        onClose={onClose}>
+        onClose={onClose}
+        submitButtonText="Сохранить">
         <fieldset className="popup__input-container">
           <input
             type="url"
@@ -88,7 +89,8 @@ function Main({
         name="profileEditForm"
         title="Редактировать профиль"
         isOpen={isEditProfilePopupOpen}
-        onClose={onClose}>
+        onClose={onClose}
+        submitButtonText="Сохранить">
         <fieldset className="popup__input-container">
               <input
                 type="text"
@@ -120,7 +122,8 @@ function Main({
         name="placeAddForm"
         title="Новое место"
         isOpen={isAddPlacePopupOpen}
-        onClose={onClose}>
+        onClose={onClose}
+        submitButtonText="Создать">
         <fieldset className="popup__input-container">
               <input
                 type="text"
