@@ -1,6 +1,7 @@
 .popup__input {
   border: 0;
   width: 100%;
+  max-width: 358px;
   padding: 0;
   padding-bottom: 10px;
   box-sizing: border-box;
@@ -16,4 +17,10 @@
 
 .popup__input:focus {
   outline: none;
+}
+
+@media screen and (max-width: 620px) {
+  .popup__input {
+    max-width: 238px;
+  }
 }
