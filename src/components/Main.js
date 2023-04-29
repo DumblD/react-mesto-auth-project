@@ -53,8 +53,8 @@ function Main({
 
       <section className="places">
         <ul className="places__container">
-          {cards.map((el) => (
-            <Card key={el._id} imgUrl={el.link} name={el.name} likesAmount={el.likes.length} onCardClick={onCardClick} />
+          {cards.map((cardElement) => (
+            <Card key={cardElement._id} card = {cardElement} onCardClick={onCardClick} />
           ))}
         </ul>
       </section>
