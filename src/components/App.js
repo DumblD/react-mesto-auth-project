@@ -10,15 +10,15 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [selectedCardImg, setSelectedCardImg] = React.useState('');
+  const [selectedCard, setSelectedCard] = React.useState({});
   const escClose = (ev) => {
     if (ev.key === "Escape") { // при клике на клавишу Esc
       closeAllPopups();
     }
   }
 
-  function handleCardClick(imgUrl) {
-    setSelectedCardImg(imgUrl);
+  function handleCardClick(cardElement) {
+    setSelectedCard(cardElement);
     escClosePopup();
   }
 
@@ -45,7 +45,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
-    setSelectedCardImg(false);
+    setSelectedCard({});
     document.removeEventListener('keydown', escClose);
   }
     return (
@@ -134,7 +134,7 @@ function App() {
           <span className="popup__error placeLink-error"></span>
         </PopupWithForm>
 
-        <ImagePopup selectedCardImg={selectedCardImg} onClose={closeAllPopups} />
+        <ImagePopup selectedCard={selectedCard} onClose={closeAllPopups} />
 
         <div id="popupConfirmDelCard" className="popup">
           <div className="popup__container">

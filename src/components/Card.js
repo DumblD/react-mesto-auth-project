@@ -5,7 +5,7 @@ function Card({
   onCardClick
 }) {
   function handleClick() {
-    onCardClick(card.link);
+    onCardClick(card);
   }
 
   return (
