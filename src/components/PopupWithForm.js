@@ -1,13 +1,19 @@
 import React from 'react';
 
-function PopupWithForm(props) {
+function PopupWithForm({
+  name,
+  title,
+  isOpen,
+  onClose,
+  children
+}) {
   return (
-    <div className={`popup popup_type_${props.name} ${props.isOpen? 'popup_opened' : ''}`}>
+    <div className={`popup popup_type_${name} ${isOpen? 'popup_opened' : ''}`}>
       <div className="popup__container">
-        <button type="button" className="popup__close-button" onClick={props.onClose}></button>
-        <form name={props.name} className="popup__form" noValidate>
-          <h3 className="popup__title">{props.title}</h3>
-            {props.children}
+        <button type="button" className="popup__close-button" onClick={onClose}></button>
+        <form name={name} className="popup__form" noValidate>
+          <h3 className="popup__title">{title}</h3>
+            {children}
           <button type="submit" className="popup__button">Сохранить</button>
         </form>
       </div>
