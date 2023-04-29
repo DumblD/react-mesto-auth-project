@@ -8,6 +8,20 @@ function PopupWithForm({
   children,
   submitButtonText
 }) {
+  const escClose = (ev) => {
+    if (ev.key === "Escape") { // при клике на клавишу Esc
+      onClose();
+    }
+  }
+  function escClosePopup() {
+    document.addEventListener('keydown', escClose);
+  }
+  React.useEffect(() => {
+    escClosePopup();
+  return () => {
+    document.removeEventListener('keydown', escClose);
+  };
+});
   return (
     <div className={`popup popup_type_${name} ${isOpen? 'popup_opened' : ''}`}>
       <div className="popup__container">
