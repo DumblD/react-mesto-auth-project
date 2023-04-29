@@ -5,8 +5,11 @@ function ImagePopup({
   onClose
 }) {
   const [isCardSelected, setIsCardSelected] = React.useState(false);
+  // для того, чтобы пользователь при закрытии попапа не видел резкого исчезновения картики
+  const [popupImgLink, setPopupImgLink] = React.useState('');
   React.useEffect(() => {
     if (JSON.stringify(selectedCard) !== '{}') {
+      setPopupImgLink(`${selectedCard.link}`);
       setIsCardSelected(true);
     } else {
       setIsCardSelected(false);
@@ -17,8 +20,8 @@ function ImagePopup({
       <div className="popup__container">
         <button type="button" className="popup__close-button" onClick={onClose}></button>
         <div className="popup__scaled-images-container scaled-images-container">
-          <img src={ `${isCardSelected? `${selectedCard.link}` : ''}` } alt={ `${isCardSelected? `${selectedCard.name}` : ''}` } className="scaled-images-container__img" />
-          <h3 className="scaled-images-container__title"></h3>
+          <img src={`${popupImgLink}`} alt={`${selectedCard.name}`.toLowerCase()} className="scaled-images-container__img" />
+          <h3 className="scaled-images-container__title">{selectedCard.name}</h3>
         </div>
       </div>
     </div>
