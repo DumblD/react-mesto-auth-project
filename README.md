@@ -14,4 +14,4 @@ Project with interactive capabilities: to add world's places you like and mark e
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![REACT](https://img.shields.io/badge/-ReactJs-61DAFB?logo=react&logoColor=white&style=for-the-badge)
 
-<a href="https://dumbld.github.io/mesto-react-project/">Ссылка на проект. GitHub Pages</a>
+<a href="https://dumbld.github.io/mesto-react-project/index.html">Ссылка на проект. GitHub Pages</a>
