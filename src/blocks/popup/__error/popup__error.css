@@ -1,13 +1,12 @@
 .popup__error {
-  display: block;
-  visibility: hidden;
   margin-top: 4px;
   font-family: 'Inter';
   font-weight: 400;
   font-size: 12px;
   line-height: 15px;
   color: #FF0000;
-  max-width: 350px;
+  max-width: 358px;
+  width: 100%;
   min-height: 30px;
 }
 

@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 function ImagePopup({
   selectedCard,
   onClose
 }) {
-  const [isCardSelected, setIsCardSelected] = React.useState(false);
+  const [isCardSelected, setIsCardSelected] = useState(false);
   // для того, чтобы пользователь при закрытии попапа не видел резкого исчезновения картики
-  const [popupImgLink, setPopupImgLink] = React.useState('');
-  React.useEffect(() => {
+  const [popupImgLink, setPopupImgLink] = useState('');
+  useEffect(() => {
     if (JSON.stringify(selectedCard) !== '{}') {
       setPopupImgLink(`${selectedCard.link}`);
       setIsCardSelected(true);

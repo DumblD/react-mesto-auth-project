@@ -84,6 +84,9 @@ class Api {
     .then((res) => this._checkServerResponseState(res));
   }
 
+  changeLikeCardStatus(cardId, isLiked) {
+    return isLiked? this.deleteLike(cardId) : this.setLike(cardId);
+  }
 }
 
 export const api = new Api({
