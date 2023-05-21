@@ -174,6 +174,9 @@ function AddPlacePopup({
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleAddPlaceSubmit}
+      submitButtonText={submitButtonText}
+      isSubmitLoading={isSubmitLoading}
+      isSubmitButtonActive={isSubmitButtonActive}
       >
       {
         inputElements.map((input) => (
@@ -186,7 +189,6 @@ function AddPlacePopup({
             onChange={handleChange} />
         ))
       }
-      <button type="submit" disabled={!isSubmitButtonActive} className={`popup__button ${isSubmitButtonActive? '': 'popup__button_disabled'}`}>{isSubmitLoading? `${submitButtonText}…` : submitButtonText}</button>
     </PopupWithForm>
   );
 }

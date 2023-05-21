@@ -9,6 +9,7 @@ function ConfirmDelCardPopup({
 }) {
 
   const submitButtonText = `Да`;
+  const isSubmitButtonActive = true;
 
   function handleConfirmDelCardSubmit(ev) {
     ev.preventDefault();
@@ -22,9 +23,10 @@ function ConfirmDelCardPopup({
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleConfirmDelCardSubmit}
+      submitButtonText={submitButtonText}
       isSubmitLoading={isSubmitLoading}
-      submitButtonText="Да">
-      <button type="submit" className="popup__button">{isSubmitLoading ? `${submitButtonText}…` : submitButtonText}</button>
+      isSubmitButtonActive={isSubmitButtonActive}
+      >
     </PopupWithForm>
   );
 }

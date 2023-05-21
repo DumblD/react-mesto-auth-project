@@ -7,6 +7,9 @@ function PopupWithForm({
   onClose,
   children,
   onSubmit,
+  submitButtonText,
+  isSubmitLoading,
+  isSubmitButtonActive
 }) {
   const escClose = (ev) => {
     if (ev.key === "Escape") { // при клике на клавишу Esc
@@ -31,6 +34,7 @@ function PopupWithForm({
         <form name={name} className="popup__form" onSubmit={onSubmit} noValidate>
           <h3 className="popup__title">{title}</h3>
             {children}
+            <button type="submit" disabled={!isSubmitButtonActive} className={`popup__button ${isSubmitButtonActive? '': 'popup__button_disabled'}`}>{isSubmitLoading? `${submitButtonText}…` : submitButtonText}</button>
         </form>
       </div>
     </div>
