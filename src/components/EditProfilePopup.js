@@ -152,6 +152,9 @@ useEffect (() => {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      submitButtonText={submitButtonText}
+      isSubmitLoading={isSubmitLoading}
+      isSubmitButtonActive={isSubmitButtonActive}
       >
       {
         inputElements.map((input) => (
@@ -164,7 +167,6 @@ useEffect (() => {
           onChange={handleChange} />
         ))
       }
-      <button type="submit" disabled={!isSubmitButtonActive} className={`popup__button ${isSubmitButtonActive? '': 'popup__button_disabled'}`}>{isSubmitLoading? `${submitButtonText}…` : submitButtonText}</button>
     </PopupWithForm>
   );
 }

@@ -52,6 +52,9 @@ function EditProfilePopup({
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleAvatarChange}
+      submitButtonText={submitButtonText}
+      isSubmitLoading={isSubmitLoading}
+      isSubmitButtonActive={isSubmitButtonActive}
       >
       <input
         type="url"
@@ -64,7 +67,6 @@ function EditProfilePopup({
         onChange={checkValidity}
       />
       <span className="popup__error avatarLink-error">{validationMessage}</span>
-      <button type="submit" disabled={!isSubmitButtonActive} className={`popup__button ${isSubmitButtonActive? '': 'popup__button_disabled'}`}>{isSubmitLoading? `${submitButtonText}…` : submitButtonText}</button>
     </PopupWithForm>
   );
 }
