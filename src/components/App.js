@@ -32,9 +32,7 @@ function App() {
       .catch((err) => {
         alert(err);
       });
-  }, []);
 
-  useEffect(() => {
     api.getInitialCards()
       .then((data) => {
         setCards(data);
