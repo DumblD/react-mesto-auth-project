@@ -4,6 +4,8 @@ import { useContext } from 'react';
 import PopupWithForm from './PopupWithForm.js';
 import FormInput from './FormInput.js';
 
+import {useInputNames, useToggleButtonActive, useHandleChange} from '../utils/customHooks/validationHooks.js';
+
 function EditProfilePopup({
   isOpen,
   onClose,
@@ -23,9 +25,7 @@ function EditProfilePopup({
 
   // текст кнопки Submit формы
   const submitButtonText = `Сохранить`;
-  const [isSubmitButtonActive, setIsSubmitButtonActive] = useState(false);
 
-  // используемые данные для инпутов в EditProfilePopup
   const inputElements = [
     {
       id: 1,
@@ -49,10 +49,9 @@ function EditProfilePopup({
     }
 ]
 
-// получение значения имен инпутов
-const nameInputs = inputElements.map((input) => {
-  return input.name;
-});
+  const nameInputs = useInputNames(inputElements);
+  const isSubmitButtonActive = useToggleButtonActive(nameInputs, inputValues);
+  const handleChange = useHandleChange(inputValues, setInputValues);
 
 // функция установки значений для инпутов из переменных
 // хранящие значения глобального контекста currentUser
@@ -68,49 +67,6 @@ function setValuesToInputs() {
       about: about
     }
   });
-}
-
-// функция установки активного состояния кнопки Submit
-// в зависимости от наличия ошибок валидации инпутов
-function togleButtonActive(isInputErorsArray) {
-  if ([...new Set(isInputErorsArray)].length == 1 && isInputErorsArray[0] === true) {
-    setIsSubmitButtonActive(false);
-  } else if ([...new Set(isInputErorsArray)].length == 1 && isInputErorsArray[0] === false) {
-    setIsSubmitButtonActive(true);
-  } else {
-    setIsSubmitButtonActive(false);
-  }
-};
-
-// функция обновления inputValues значениями, вводимыми пользователем в inputs
-function handleInputValuesChange(ev, isError, errorMessage) {
-  setInputValues({
-    ...inputValues,
-    [ev.target.name]: {
-      ...inputValues[ev.target.name],
-      [ev.target.name]: ev.target.value,
-      isInputError: isError,
-      errorMessage: errorMessage
-    }
-  });
-}
-
-// функция, исполняемая при вводе пользователем значений в inputs
-// (проверка inputs на валидность, обновление inputValues)
-function handleChange(ev, input) {
-  let isError = false;
-  let errorMessage = "";
-  setIsSubmitButtonActive(true);
-  if (ev.target.value && ev.target.value.length < input.minLength) {
-    isError = true;
-    setIsSubmitButtonActive(false);
-    errorMessage = `Пожалуйста, используйте не менее ${input.minLength} символов (сейчас вы используете ${ev.target.value.length} символов).`;
-  } else if (!ev.target.value) {
-    isError = true;
-    setIsSubmitButtonActive(false);
-    errorMessage = `Пожалуйста, заполните это поле.`;
-  }
-  handleInputValuesChange(ev, isError, errorMessage);
 }
 
 //функция submit формы (обновление пользовательских данных на сервере)
@@ -136,14 +92,6 @@ function handleSubmit(ev) {
       };
     }
   }, [isOpen, onClose]);
-
-useEffect (() => {
-  const inputErrorState = nameInputs.map((el) => {
-    return inputValues[el].isInputError;
-  });
-
-  togleButtonActive(inputErrorState);
-}, [inputValues]);
 
   return (
     <PopupWithForm
