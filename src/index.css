@@ -17,6 +17,11 @@
 @import url(./blocks/header/__desktop-container/header__desktop-container.css);
 @import url(./blocks/logo/__img/logo__img.css);
 
+@import url(./blocks/header-login-register/header-login-register.css);
+@import url(./blocks/header-login-register/__logo/header-login-register__logo.css);
+@import url(./blocks/header-login-register/__login-register-container/header-login-register__login-register-container.css);
+@import url(./blocks/header-login-register/__button/header-login-register__button.css);
+
 @import url(./blocks/profile/profile.css);
 @import url(./blocks/profile/__img/profile__img.css);
 @import url(./blocks/profile/__img-container/profile__img-container.css);

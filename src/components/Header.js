@@ -4,6 +4,9 @@ import headerLogoImg from '../images/logo.svg';
 import MobileMenu from './MobileMenu';
 
 function Header({
+  isMainPage,
+  loginRegisterButtonText,
+  handleLoginRegisterButton,
   currentUserEmail
 }) {
 
@@ -24,7 +27,9 @@ function Header({
   }
 
   return (
-    <header className="header">
+    <>
+      {isMainPage? (
+      <header className="header">
       <MobileMenu currentUserEmail={currentUserEmail} isMobileMenuActive={isMobileMenuActive} systemLogout={systemLogout} />
       <div className="header__desktop-container">
         <div className="logo header__logo">
@@ -37,6 +42,17 @@ function Header({
         </div>
       </div>
     </header>
+    ) : (
+    <header className="header-login-register">
+        <div className="logo header-login-register__logo">
+          <img src={headerLogoImg} alt="лого Место-Россия" className="logo__img" />
+        </div>
+        <div className="header-login-register__login-register-container">
+          <button aria-label={loginRegisterButtonText} type="button" onClick={handleLoginRegisterButton} className="header-login-register__button">{loginRegisterButtonText}</button>
+        </div>
+      </header>
+      )}
+    </>
   );
 }
 

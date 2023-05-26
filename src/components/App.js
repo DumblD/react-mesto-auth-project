@@ -82,7 +82,7 @@ function App() {
           <Route path="*" element={loggedIn ? <Navigate to="/" replace /> : <Navigate to="/signin" replace />} />
           <Route path="/" element={<ProtectedRouteElement element={MestoGeneralPage} loggedIn={loggedIn} currentUserEmail={currentUserEmail} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
           <Route path="/signup" element={<Register onRegister={onRegister} isRegisterSuccess={isRegisterSuccess} isRegisterInfoPopupOpen={isRegisterInfoPopupOpen} setIsRegisterInfoPopupOpen={setIsRegisterInfoPopupOpen} />} />
-          <Route path="/signin" element={<Login onLogin={onLogin} />} />
+          <Route path="/signin" element={<Login onLogin={onLogin} currentUserEmail={currentUserEmail} />} />
         </Routes>
       </CurrentUserEmail.Provider>
     </CurrentUserContext.Provider>

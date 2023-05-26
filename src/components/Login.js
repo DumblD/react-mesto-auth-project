@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import headerLogoImg from './../images/logo.svg';
-import * as auth from './../utils/auth.js';
+import Header from './Header.js';
 import './Login.css';
 
 import FormInput from './FormInput.js';
 
 import { useInputNames, useToggleButtonActive, useHandleChange } from '../utils/customHooks/validationHooks.js';
 
-function Login({ onLogin }) {
+function Login({ onLogin, currentUserEmail }) {
 
   const [inputValues, setInputValues] = useState({
     loginEmail: { loginEmail: "", isInputError: false, errorMessage: "" },
@@ -42,6 +41,8 @@ function Login({ onLogin }) {
   const isSubmitButtonActive = useToggleButtonActive(nameInputs, inputValues);
   const handleChange = useHandleChange(inputValues, setInputValues);
   const navigate = useNavigate();
+  const isMainPage = false;
+  const loginRegisterButtonText = "Регистрация";
   const loginData = {
     password: null,
     email: null
@@ -103,14 +104,12 @@ function Login({ onLogin }) {
 
   return (
     <>
-      <header className="header-login">
-        <div className="logo header-login__logo">
-          <img src={headerLogoImg} alt="лого Место-Россия" className="logo__img" />
-        </div>
-        <div className="header-login__register">
-          <button aria-label="зарегистрироваться" type="button" onClick={handleSignUp} className="header-login__register-button">Регистрация</button>
-        </div>
-      </header>
+      <Header
+      isMainPage={isMainPage}
+      loginRegisterButtonText={loginRegisterButtonText}
+      handleLoginRegisterButton={handleSignUp}
+      currentUserEmail={currentUserEmail}
+      />
 
       <section className="login">
         <form onSubmit={handleSubmit} name="loginForm" className="login__form" noValidate>

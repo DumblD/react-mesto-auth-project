@@ -1,0 +1,26 @@
+.header-login-register {
+  margin: 0 auto;
+  max-width: 880px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: max-content max-content;
+  grid-template-rows: max-content;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(84, 84, 84, .7);
+  padding-top: 45px;
+  padding-bottom: 31px;
+  font-family: 'Inter';
+  font-weight: 400;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1280px) {
+  .header-login-register {
+    padding-top: 45px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header-login-register {
+    padding-top: 28px;
+  }
+}

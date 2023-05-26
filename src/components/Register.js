@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import headerLogoImg from './../images/logo.svg';
-import * as auth from './../utils/auth.js';
+import Header from './Header.js';
 import './Register.css';
 
 import FormInput from './FormInput.js';
@@ -13,7 +12,8 @@ function Register({
   onRegister,
   isRegisterSuccess,
   isRegisterInfoPopupOpen,
-  setIsRegisterInfoPopupOpen
+  setIsRegisterInfoPopupOpen,
+  currentUserEmail
 }) {
 
   function closeInfoPopup() {
@@ -52,6 +52,8 @@ function Register({
   const isSubmitButtonActive = useToggleButtonActive(nameInputs, inputValues);
   const handleChange = useHandleChange(inputValues, setInputValues);
   const navigate = useNavigate();
+  const isMainPage = false;
+  const loginRegisterButtonText = "Войти";
   const registerData = {
     password: null,
     email: null
@@ -81,14 +83,12 @@ function Register({
   }
   return (
     <>
-      <header className="header-register">
-        <div className="logo header-register__logo">
-          <img src={headerLogoImg} alt="лого Место-Россия" className="logo__img" />
-        </div>
-        <div className="header-register__login">
-          <button aria-label="войти" type="button" onClick={handleSignIn} className="header-register__login-button">Войти</button>
-        </div>
-      </header>
+      <Header
+      isMainPage={isMainPage}
+      loginRegisterButtonText={loginRegisterButtonText}
+      handleLoginRegisterButton={handleSignIn}
+      currentUserEmail={currentUserEmail}
+      />
 
       <section className="register">
         <form onSubmit={handleSubmit} name="registerForm" className="register__form" noValidate>
@@ -106,7 +106,7 @@ function Register({
             ))
           }
 
-          <button type="submit" disabled={!isSubmitButtonActive} className={`login__button ${isSubmitButtonActive ? '' : 'login__button_disabled'}`}>Зарегисрироваться</button>
+          <button type="submit" disabled={!isSubmitButtonActive} className={`login__button ${isSubmitButtonActive ? '' : 'login__button_disabled'}`}>Зарегистрироваться</button>
         </form>
         <div className="register__alreadyRegistered">Уже зарегистрированы? <button aria-label="войти" type="button" onClick={handleSignIn} className="register__login-button">Войти</button></div>
       </section>

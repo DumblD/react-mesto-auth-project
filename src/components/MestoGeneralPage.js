@@ -24,6 +24,7 @@ function MestoGeneralPage({
   const [selectedCardToDelete, setSelectedCardToDelete] = useState({});
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);
   const [cards, setCards] = useState([]);
+  const isMainPage = true;
 
   useEffect(() => {
     api.getUserInfo()
@@ -167,7 +168,7 @@ function MestoGeneralPage({
   }
   return (
     <>
-      <Header currentUserEmail={currentUserEmail} />
+      <Header isMainPage={isMainPage} currentUserEmail={currentUserEmail} />
       <Main
         onEditAvatar={handleEditAvatarClick}
         onEditProfile={handleEditProfileClick}
