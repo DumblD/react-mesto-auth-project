@@ -9,10 +9,12 @@ import InfoTooltip from './InfoTooltip.js';
 
 import { useInputNames, useToggleButtonActive, useHandleChange } from '../utils/customHooks/validationHooks.js';
 
-function Register() {
-
-  const [isRegisterSuccess, setIsRegisterSuccess] = useState(false);
-  const [isRegisterInfoPopupOpen, setIsRegisterInfoPopupOpen] = useState(false);
+function Register({
+  onRegister,
+  isRegisterSuccess,
+  isRegisterInfoPopupOpen,
+  setIsRegisterInfoPopupOpen
+}) {
 
   function closeInfoPopup() {
     setIsRegisterInfoPopupOpen(false);
@@ -64,22 +66,14 @@ function Register() {
         }
       })
     }
+    return registerData;
   }
 
   //функция submit формы (обновление пользовательских данных на сервере)
   function handleSubmit(ev) {
     ev.preventDefault();
-    gatherRegisterData();
-    auth.register(registerData)
-      .then((data) => {
-        if (data) {
-          setIsRegisterSuccess(true);
-          setIsRegisterInfoPopupOpen(true);
-        } else {
-          setIsRegisterSuccess(false);
-          setIsRegisterInfoPopupOpen(true);
-        }
-      }).catch(err => console.log(err));
+    const registerData = gatherRegisterData();
+    onRegister(registerData);
   }
 
   function handleSignIn() {

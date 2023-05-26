@@ -14,6 +14,8 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [currentUserEmail, setCurrentUserEmail] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
+  const [isRegisterSuccess, setIsRegisterSuccess] = useState(false);
+  const [isRegisterInfoPopupOpen, setIsRegisterInfoPopupOpen] = useState(false);
   const navigate = useNavigate();
 
   function handleLogin() {
@@ -37,6 +39,20 @@ function App() {
         alert(`${err}
 Попробуйте ещё раз.`);
       })
+  }
+
+  function onRegister(registerData) {
+    auth.register(registerData)
+      .then((data) => {
+        if (data) {
+          setIsRegisterSuccess(true);
+          setIsRegisterInfoPopupOpen(true);
+        }
+      }).catch((err) => {
+        console.log(err);
+        setIsRegisterSuccess(false);
+        setIsRegisterInfoPopupOpen(true);
+      });
   }
 
   useEffect(() => {
@@ -65,7 +81,7 @@ function App() {
         <Routes>
           <Route path="*" element={loggedIn ? <Navigate to="/" replace /> : <Navigate to="/signin" replace />} />
           <Route path="/" element={<ProtectedRouteElement element={MestoGeneralPage} loggedIn={loggedIn} currentUserEmail={currentUserEmail} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
-          <Route path="/signup" element={<Register />} />
+          <Route path="/signup" element={<Register onRegister={onRegister} isRegisterSuccess={isRegisterSuccess} isRegisterInfoPopupOpen={isRegisterInfoPopupOpen} setIsRegisterInfoPopupOpen={setIsRegisterInfoPopupOpen} />} />
           <Route path="/signin" element={<Login onLogin={onLogin} />} />
         </Routes>
       </CurrentUserEmail.Provider>

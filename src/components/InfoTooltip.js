@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import successRegisterImg from './../images/success-register-img.svg';
 import failRegisterImg from './../images/fail-register-img.svg';
+import {usePopupClose} from '../utils/customHooks/usePopupClose.js';
 import {useNavigate} from 'react-router-dom';
 import './InfoTooltip.css';
 
@@ -13,6 +14,8 @@ function InfoTooltip({
   const [popupImg, setPopupImg] = useState('');
   const [altImgText, setaAltImgText] = useState('');
   const [popupText, setPopupText] = useState('');
+  // закрытие попапа по клику вне формы / клавишу Esc
+  usePopupClose(isOpen, onClose);
   const navigate = useNavigate();
 
   function handleClose() {
@@ -33,7 +36,7 @@ function InfoTooltip({
       setPopupText(`Что-то пошло не так!
       Попробуйте ещё раз.`);
     }
-  }, [isOpen]);
+  }, [isOpen, isRegisterSuccess]);
 
   return (
     <div className={`info-popup ${isOpen? 'info-popup_opened' : ''}`}>

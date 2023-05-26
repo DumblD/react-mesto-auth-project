@@ -6,7 +6,7 @@ export function usePopupClose(isOpen, closePopup) {
 
     const handleOverlay = (event) => {
       // закрытие по клику на оверлей
-      if (event.target.classList.contains("popup_opened")) {
+      if (event.target.className.includes("popup_opened")) {
         closePopup();
       }
     };

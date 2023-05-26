@@ -22,9 +22,6 @@ export const register = (registerData) => {
     .then((res) => {
       return res;
     })
-    .catch((err) => {
-      console.log(err);
-    });
 };
 export const authorize = (loginData) => {
   return fetch(`${BASE_URL}/signin`, {
