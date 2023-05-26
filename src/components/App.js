@@ -41,18 +41,16 @@ function App() {
   }
 
   return (
-    <>
-      <CurrentUserContext.Provider value={currentUser}>
-        <CurrentUserEmail.Provider value={currentUserEmail}>
-          <Routes>
-            <Route path="*" element={loggedIn ? <Navigate to="/" replace /> : <Navigate to="/signin" replace />} />
-            <Route path="/" element={<ProtectedRouteElement element={MestoGeneralPage} loggedIn={loggedIn} currentUserEmail={currentUserEmail} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
-            <Route path="/signup" element={<Register />} />
-            <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
-          </Routes>
-        </CurrentUserEmail.Provider>
-      </CurrentUserContext.Provider>
-    </>
+    <CurrentUserContext.Provider value={currentUser}>
+      <CurrentUserEmail.Provider value={currentUserEmail}>
+        <Routes>
+          <Route path="*" element={loggedIn ? <Navigate to="/" replace /> : <Navigate to="/signin" replace />} />
+          <Route path="/" element={<ProtectedRouteElement element={MestoGeneralPage} loggedIn={loggedIn} currentUserEmail={currentUserEmail} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
+          <Route path="/signup" element={<Register />} />
+          <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
+        </Routes>
+      </CurrentUserEmail.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 
