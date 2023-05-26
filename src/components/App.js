@@ -33,7 +33,10 @@ function App() {
           setLoggedIn(true);
           navigate("/", { replace: true });
         }
-      });
+      }).catch((err) => {
+        alert(`${err}
+Что-то пошло не так. Попробуйте войти снова.`);
+      })
     }
   }
 
