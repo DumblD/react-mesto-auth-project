@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {usePopupClose} from '../utils/customHooks/usePopupClose.js';
 
 function ImagePopup({
   selectedCard,
@@ -7,6 +8,8 @@ function ImagePopup({
   const [isCardSelected, setIsCardSelected] = useState(false);
   // для того, чтобы пользователь при закрытии попапа не видел резкого исчезновения картики
   const [popupImgLink, setPopupImgLink] = useState('');
+  // закрытие попапа по клику вне формы / клавишу Esc
+  usePopupClose(isCardSelected, onClose);
   useEffect(() => {
     if (JSON.stringify(selectedCard) !== '{}') {
       setPopupImgLink(`${selectedCard.link}`);

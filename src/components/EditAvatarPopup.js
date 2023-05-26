@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm.js';
+import {usePopupClose} from '../utils/customHooks/usePopupClose.js';
 
 function EditProfilePopup({
   isOpen,
@@ -15,6 +16,8 @@ function EditProfilePopup({
   const [inputValue, setInputValue] = useState('');
   const [validationMessage, setValidationMessage] = useState('');
   const [isinputError, setIsinputError] = useState(false);
+  // закрытие попапа по клику вне формы / клавишу Esc
+  usePopupClose(isOpen, onClose);
 
   // функция проверки inputs на валидность
   function handleChange(ev) {

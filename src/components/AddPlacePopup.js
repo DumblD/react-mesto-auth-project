@@ -3,6 +3,7 @@ import PopupWithForm from './PopupWithForm.js';
 import FormInput from './FormInput.js';
 
 import {useInputNames, useToggleButtonActive, useHandleChange, useClearInputs} from '../utils/customHooks/validationHooks.js';
+import {usePopupClose} from '../utils/customHooks/usePopupClose.js';
 
 function AddPlacePopup({
   isOpen,
@@ -16,6 +17,8 @@ function AddPlacePopup({
     name: { name: "", isInputError: false, errorMessage: "" },
     link: { link: "", isInputError: false, errorMessage: "" },
   })
+  // закрытие попапа по клику вне формы / клавишу Esc
+  usePopupClose(isOpen, onClose);
 
   // текст кнопки Submit формы
   const submitButtonText = `Сохранить`;

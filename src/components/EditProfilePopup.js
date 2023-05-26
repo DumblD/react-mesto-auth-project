@@ -5,6 +5,7 @@ import PopupWithForm from './PopupWithForm.js';
 import FormInput from './FormInput.js';
 
 import {useInputNames, useToggleButtonActive, useHandleChange} from '../utils/customHooks/validationHooks.js';
+import {usePopupClose} from '../utils/customHooks/usePopupClose.js';
 
 function EditProfilePopup({
   isOpen,
@@ -52,6 +53,8 @@ function EditProfilePopup({
   const nameInputs = useInputNames(inputElements);
   const isSubmitButtonActive = useToggleButtonActive(nameInputs, inputValues);
   const handleChange = useHandleChange(inputValues, setInputValues);
+  // закрытие попапа по клику вне формы / клавишу Esc
+  usePopupClose(isOpen, onClose);
 
 // функция установки значений для инпутов из переменных
 // хранящие значения глобального контекста currentUser
