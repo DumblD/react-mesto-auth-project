@@ -1,4 +1,5 @@
 import React from 'react';
+import './FormInput.css';
 
 function FormInput({
   type,
@@ -24,7 +25,7 @@ function FormInput({
       <input
         type={type}
         name={name}
-        className={isValidationError? `popup__input_type_error ${className}` : `${className}`}
+        className={isValidationError? `input_type_error ${className}` : `${className}`}
         required={required}
         minLength={minLength}
         maxLength={maxLength}

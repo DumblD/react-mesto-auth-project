@@ -1,0 +1,16 @@
+.header__email-container {
+  display: flex;
+  align-self: center;
+  justify-self: right;
+  color: #fff;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  padding-right: 24px;
+}
+
+@media screen and (max-width: 620px) {
+  .header__email-container {
+    display: none;
+  }
+}

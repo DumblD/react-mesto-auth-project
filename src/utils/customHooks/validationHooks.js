@@ -67,6 +67,16 @@ export const useHandleChange = (inputValues, setInputValues) => {
     return regEx.test(url);
  }
 
+ function isValidEmail(email) {
+  let regEx = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
+  return regEx.test(email);
+}
+
+function isValidPassword(psw) {
+  let regEx = /^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{7,}$/;
+  return regEx.test(psw);
+}
+
 
   return function handleChange(ev, input) {
     let isError = false;
@@ -91,6 +101,33 @@ export const useHandleChange = (inputValues, setInputValues) => {
       } else {
         isError = true;
         errorMessage = `Пожалуйста, введите URL.`;
+      }
+    } else if (input.type === "email") {
+
+      if (!ev.target.value) {
+        isError = true;
+        errorMessage = `Пожалуйста, заполните это поле.`;
+      } else if (isValidEmail(ev.target.value)) {
+        isError = false;
+        errorMessage = "";
+      } else {
+        isError = true;
+        errorMessage = `Пожалуйста, введите Email.`;
+      }
+    } else if (input.type === "password") {
+
+      if (!ev.target.value) {
+        isError = true;
+        errorMessage = `Пожалуйста, заполните это поле.`;
+      } else if (input.name.includes('register') && !isValidPassword(ev.target.value)) {
+        isError = true;
+        errorMessage = `Пароль должен содержать как минимум одну цифру, одну заглавную и одну строчную буквы. Минимальная длина 7 символов.`;
+      } else if (ev.target.value && ev.target.value.length < input.minLength) {
+        isError = true;
+        errorMessage = `Допустимая длина пароля - не менее ${input.minLength} символов (сейчас вы используете ${ev.target.value.length} символов).`;
+      } else {
+        isError = false;
+        errorMessage = "";
       }
     }
     handleInputValuesChange(ev, isError, errorMessage);
