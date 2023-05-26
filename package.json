@@ -1,6 +1,6 @@
 {
-  "name": "mesto-react",
-  "homepage": "https://dumbld.github.io/mesto-react-project/",
+  "name": "react-mesto-auth",
+  "homepage": "https://dumbld.github.io/react-mesto-auth-project/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
