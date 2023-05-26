@@ -85,13 +85,8 @@ function handleSubmit(ev) {
   }, [currentUser]);
 
   useEffect(() => {
-    if (isOpen) {
-      setValuesToInputs();
-      return () => {
-        setValuesToInputs();
-      };
-    }
-  }, [isOpen, onClose]);
+    setValuesToInputs();
+  }, [isOpen]);
 
   return (
     <PopupWithForm
