@@ -68,6 +68,9 @@ function MestoGeneralPage({
         });
         setCards(updatedCards);
       })
+      .catch((err) => {
+        alert(err);
+      });
   }
 
   function handleUpdateUser({ name, about }) {
