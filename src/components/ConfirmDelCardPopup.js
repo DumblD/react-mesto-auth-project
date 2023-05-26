@@ -26,8 +26,7 @@ function ConfirmDelCardPopup({
       submitButtonText={submitButtonText}
       isSubmitLoading={isSubmitLoading}
       isSubmitButtonActive={isSubmitButtonActive}
-      >
-    </PopupWithForm>
+      />
   );
 }
 
