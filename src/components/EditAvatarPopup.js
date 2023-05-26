@@ -12,21 +12,22 @@ function EditProfilePopup({
   const submitButtonText = `Сохранить`;
   const [isSubmitButtonActive, setIsSubmitButtonActive] = useState(false);
 
-  const inputUrlRef = useRef();
+  const [inputValue, setInputValue] = useState('');
   const [validationMessage, setValidationMessage] = useState('');
   const [isinputError, setIsinputError] = useState(false);
 
   // функция проверки inputs на валидность
-  function checkValidity() {
-    if (inputUrlRef.current.validity.valid) {
+  function handleChange(ev) {
+    if (ev.target.validity.valid) {
       setValidationMessage('');
       setIsinputError(false);
       setIsSubmitButtonActive(true);
     } else {
-      setValidationMessage(inputUrlRef.current.validationMessage);
+      setValidationMessage(ev.target.validationMessage);
       setIsinputError(true);
       setIsSubmitButtonActive(false);
     }
+    setInputValue(ev.target.value);
   }
 
   //функция submit формы (обновление аватара пользователя на сервере)
@@ -34,12 +35,12 @@ function EditProfilePopup({
     ev.preventDefault();
 
     onUpdateAvatar({
-      avatarUrl: inputUrlRef.current.value
+      avatarUrl: inputValue
     });
   }
 
   useEffect (() => {
-    inputUrlRef.current.value = '';
+    setInputValue('');
     setValidationMessage('');
     setIsinputError(false);
     setIsSubmitButtonActive(false);
@@ -63,8 +64,8 @@ function EditProfilePopup({
         className={`popup__input popup__input_el_avatar-link ${isinputError? 'popup__input_type_error' : ''}`}
         required
         placeholder="Ссылка на картинку"
-        ref={inputUrlRef}
-        onChange={checkValidity}
+        value={inputValue}
+        onChange={handleChange}
       />
       <span className="popup__error avatarLink-error">{validationMessage}</span>
     </PopupWithForm>
