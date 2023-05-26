@@ -25,8 +25,8 @@ function App() {
   }, [])
 
   function handleTokenCheck() {
-    if (localStorage.getItem('jwt')) {
-      const jwt = localStorage.getItem('jwt');
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
       auth.checkToken(jwt).then((res) => {
         if (res) {
           setCurrentUserEmail(res.data.email);
