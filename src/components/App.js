@@ -20,6 +20,25 @@ function App() {
     setLoggedIn(true);
   }
 
+  function onLogin(loginData, clearInputs) {
+    auth.authorize(loginData)
+      .then((data) => {
+        if (data) {
+          if (data.token) {
+            clearInputs();
+            setCurrentUserEmail(loginData.email);
+            handleLogin();
+            navigate('/', { replace: true });
+          }
+        }
+        return;
+      })
+      .catch(err => {
+        alert(`${err}
+Попробуйте ещё раз.`);
+      })
+  }
+
   useEffect(() => {
     handleTokenCheck();
   }, [])
@@ -47,7 +66,7 @@ function App() {
           <Route path="*" element={loggedIn ? <Navigate to="/" replace /> : <Navigate to="/signin" replace />} />
           <Route path="/" element={<ProtectedRouteElement element={MestoGeneralPage} loggedIn={loggedIn} currentUserEmail={currentUserEmail} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
           <Route path="/signup" element={<Register />} />
-          <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
+          <Route path="/signin" element={<Login onLogin={onLogin} />} />
         </Routes>
       </CurrentUserEmail.Provider>
     </CurrentUserContext.Provider>

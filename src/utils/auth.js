@@ -43,10 +43,6 @@ export const authorize = (loginData) => {
         return data;
       }
     })
-    .catch(err => {
-      alert(`${err}
-Попробуйте ещё раз.`);
-    })
 };
 export const checkToken = (token) => {
   return fetch(`${BASE_URL}/users/me`, {

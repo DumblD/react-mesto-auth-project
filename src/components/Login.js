@@ -8,7 +8,7 @@ import FormInput from './FormInput.js';
 
 import { useInputNames, useToggleButtonActive, useHandleChange } from '../utils/customHooks/validationHooks.js';
 
-function Login({ handleLogin }) {
+function Login({ onLogin }) {
 
   const [inputValues, setInputValues] = useState({
     loginEmail: { loginEmail: "", isInputError: false, errorMessage: "" },
@@ -84,6 +84,7 @@ function Login({ handleLogin }) {
         }
       })
     }
+    return loginData;
   }
 
   //функция submit формы (обновление пользовательских данных на сервере)
@@ -92,22 +93,8 @@ function Login({ handleLogin }) {
     if (isEmptyValues()) {
       return;
     }
-    gatherLoginData();
-    auth.authorize(loginData)
-      .then((data) => {
-        if (data) {
-          if (data.token) {
-            clearInputs();
-            handleLogin();
-            navigate('/', { replace: true });
-          }
-        }
-        return;
-      })
-      .catch(err => {
-        console.log(err);
-        alert('Что-то пошло не так.');
-      });
+    const loginData = gatherLoginData();
+    onLogin(loginData, clearInputs);
   }
 
   function handleSignUp() {
