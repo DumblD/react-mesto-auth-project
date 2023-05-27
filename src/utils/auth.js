@@ -8,49 +8,43 @@ function checkServerResponseState(res) {
   return Promise.reject(`Ошибка: ${res.status}`);
 }
 
+function request(endpoint, options) {
+  const url = `${BASE_URL}${endpoint}`;
+  return fetch(url, options).then(checkServerResponseState)
+}
+
 export const register = (registerData) => {
-  return fetch(`${BASE_URL}/signup`, {
+  return request('/signup', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(registerData)
   })
-    .then((response) => {
-      return checkServerResponseState(response);
-    })
-    .then((res) => {
-      return res;
-    })
 };
+
 export const authorize = (loginData) => {
-  return fetch(`${BASE_URL}/signin`, {
+  return request('/signin', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(loginData)
   })
-    .then((response) => {
-      return checkServerResponseState(response);
-    })
-    .then((data) => {
-      if (data.token) {
-        localStorage.setItem('jwt', data.token);
-        return data;
-      }
-    })
+  .then((data) => {
+    if (data.token) {
+      localStorage.setItem('jwt', data.token);
+      return data;
+    }
+  })
 };
+
 export const checkToken = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
+  return request('/users/me', {
     method: 'GET',
     headers: {
       "Content-Type": "application/json",
       "Authorization": `Bearer ${token}`
     }
   })
-    .then((res) => {
-      return res.json();
-    })
-    .then(data => data)
 }
