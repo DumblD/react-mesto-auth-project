@@ -54,87 +54,62 @@ function MestoGeneralPage({
         });
         setCards(updatedCards);
       })
-      .catch((err) => {
-        alert(err);
-      });
+      .catch(console.error);
+  }
+
+  function handleSubmit(request) {
+    toggleSubmitLoading(true);
+    request()
+      .then(closeAllPopups)
+      .catch(console.error)
+      .finally(() => toggleSubmitLoading(false));
   }
 
   function handleCardDelete(card) {
-    toggleSubmitLoading(true);
-    return api.deleteCard(card._id)
-      .then(() => {
-        const updatedCards = cards.filter((cardElement) => {
-          return cardElement._id !== card._id;
-        });
-        setCards(updatedCards);
-      })
-      .catch((err) => {
-        alert(err);
-      });
+    function makeRequest() {
+      return api.deleteCard(card._id)
+        .then(() => {
+          const updatedCards = cards.filter((cardElement) => {
+            return cardElement._id !== card._id;
+          });
+          setCards(updatedCards);
+        })
+    }
+    handleSubmit(makeRequest);
   }
 
   function handleUpdateUser({ name, about }) {
-    toggleSubmitLoading(true);
-    api.updateUserInfo(name, about)
-      .then((userInfo) => {
-        setCurrentUser(userInfo);
-      })
-      .then(() => {
-        closeAllPopups();
-      })
-      .catch((err) => {
-        alert(err);
-      })
-      .finally(() => {
-        toggleSubmitLoading(false);
-      });
+    function makeRequest() {
+      return api.updateUserInfo(name, about)
+        .then((userInfo) => {
+          setCurrentUser(userInfo);
+        })
+    }
+    handleSubmit(makeRequest);
   }
 
   function handleUpdateAvatar({ avatarUrl }) {
-    toggleSubmitLoading(true);
-    api.updateUserAvatar(avatarUrl)
-      .then((userInfo) => {
-        setCurrentUser(userInfo);
-      })
-      .then(() => {
-        closeAllPopups();
-      })
-      .catch((err) => {
-        alert(err);
-      })
-      .finally(() => {
-        toggleSubmitLoading(false);
-      });
+    function makeRequest() {
+      return api.updateUserAvatar(avatarUrl)
+        .then((userInfo) => {
+          setCurrentUser(userInfo);
+        })
+    }
+    handleSubmit(makeRequest);
   }
 
   function handleAddPlace(data) {
-    toggleSubmitLoading(true);
-    api.addNewCard(data)
-      .then((newCardData) => {
-        setCards([newCardData, ...cards]);
-      })
-      .then(() => {
-        closeAllPopups();
-      })
-      .catch((err) => {
-        alert(err);
-      })
-      .finally(() => {
-        toggleSubmitLoading(false);
-      });
+    function makeRequest() {
+      return api.addNewCard(data)
+        .then((newCardData) => {
+          setCards([newCardData, ...cards]);
+        })
+    }
+    handleSubmit(makeRequest);
   }
 
   function handleConfirmDelCard() {
-    return handleCardDelete(selectedCardToDelete)
-      .then(() => {
-        setIsConfirmDelCardPopupOpen(false);
-      })
-      .catch((err) => {
-        alert(err);
-      })
-      .finally(() => {
-        toggleSubmitLoading(false);
-      });
+    handleCardDelete(selectedCardToDelete);
   }
 
   function handleCardClick(cardElement) {
