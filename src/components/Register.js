@@ -1,20 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useFormAndValidation, useInputNames } from '../utils/customHooks/useFormAndValidation.js';
 import Header from './Header.js';
 import './Register.css';
 
 import FormInput from './FormInput.js';
 
-import { useInputNames, useToggleButtonActive, useHandleChange } from '../utils/customHooks/validationHooks.js';
-
 function Register({
   onRegister
 }) {
 
-  const [inputValues, setInputValues] = useState({
-    registerEmail: { registerEmail: "", isInputError: false, errorMessage: "" },
-    registerPassword: { registerPassword: "", isInputError: false, errorMessage: "" },
-  });
+  const {values, handleChange, errors, isInputValid, isSubmitButtonActive} = useFormAndValidation();
 
   const inputElements = [
     {
@@ -33,15 +29,13 @@ function Register({
       name: "registerPassword",
       className: "register__input register__input_el_register-password",
       required: true,
-      minLength: "7",
-      maxLength: "50",
-      placeholder: "Пароль"
+      placeholder: "Пароль",
+      pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{7,}$",
+      title: "Пароль должен содержать как минимум одну цифру, одну заглавную и одну строчную буквы. Минимальная длина 7 символов."
     }
   ]
 
   const nameInputs = useInputNames(inputElements);
-  const isSubmitButtonActive = useToggleButtonActive(nameInputs, inputValues);
-  const handleChange = useHandleChange(inputValues, setInputValues);
   const navigate = useNavigate();
   const isMainPage = false;
   const loginRegisterButtonText = "Войти";
@@ -55,7 +49,7 @@ function Register({
     for (const key in registerData) {
       nameInputs.forEach((el) => {
         if (el.toLowerCase().includes(key.toString())) {
-          registerData[key] = inputValues[el][el];
+          registerData[key] = values[el];
         }
       })
     }
@@ -88,10 +82,10 @@ function Register({
             inputElements.map((input) => (
               <FormInput key={input.id}
                 {...input}
-                value={inputValues[input.name][input.name] || ""}
+                value={values[input.name] || ""}
                 inputElement={input}
-                isValidationError={inputValues[input.name].isInputError}
-                errorMessageText={inputValues[input.name].errorMessage}
+                isInputValid={isInputValid[input.name]}
+                errorMessageText={errors[input.name]}
                 onChange={handleChange} />
             ))
           }

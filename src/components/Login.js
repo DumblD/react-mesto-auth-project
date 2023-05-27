@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useFormAndValidation, useInputNames } from '../utils/customHooks/useFormAndValidation.js';
 import Header from './Header.js';
 import './Login.css';
 
 import FormInput from './FormInput.js';
 
-import { useInputNames, useToggleButtonActive, useHandleChange } from '../utils/customHooks/validationHooks.js';
-
 function Login({ onLogin, currentUserEmail }) {
 
-  const [inputValues, setInputValues] = useState({
-    loginEmail: { loginEmail: "", isInputError: false, errorMessage: "" },
-    loginPassword: { loginPassword: "", isInputError: false, errorMessage: "" },
-  });
+  const {values, handleChange, errors, isInputValid, resetForm, isSubmitButtonActive} = useFormAndValidation();
 
   const inputElements = [
     {
@@ -31,15 +27,15 @@ function Login({ onLogin, currentUserEmail }) {
       name: "loginPassword",
       className: "login__input login__input_el_login-password",
       required: true,
-      minLength: "7",
-      maxLength: "20",
-      placeholder: "Пароль"
+      placeholder: "Пароль",
+      minLength: "7"
     }
   ]
 
   const nameInputs = useInputNames(inputElements);
-  const isSubmitButtonActive = useToggleButtonActive(nameInputs, inputValues);
-  const handleChange = useHandleChange(inputValues, setInputValues);
+  const clearInputs = () => {
+    resetForm();
+  }
   const navigate = useNavigate();
   const isMainPage = false;
   const loginRegisterButtonText = "Регистрация";
@@ -48,40 +44,12 @@ function Login({ onLogin, currentUserEmail }) {
     email: null
   }
 
-  // функция проверки на пустые значения
-  function isEmptyValues() {
-    const isAnyEmpty = nameInputs.map((el) => {
-      return inputValues[el].el;
-    }).some((el) => {
-      return el === '';
-    });
-    return isAnyEmpty;
-  }
-
-  function clearInputs() {
-    setInputValues({
-      ...inputValues,
-      loginEmail: {
-        ...inputValues.loginEmail,
-        loginEmail: "",
-        isInputError: false,
-        errorMessage: ""
-      },
-      loginPassword: {
-        ...inputValues.loginPassword,
-        loginPassword: "",
-        isInputError: false,
-        errorMessage: ""
-      }
-    });
-  }
-
   // функция, формирующая данные для последующего обращения с ними на сервер
   function gatherLoginData() {
     for (const key in loginData) {
       nameInputs.forEach((el) => {
         if (el.toLowerCase().includes(key.toString())) {
-          loginData[key] = inputValues[el][el];
+          loginData[key] = values[el];
         }
       })
     }
@@ -91,9 +59,6 @@ function Login({ onLogin, currentUserEmail }) {
   //функция submit формы (обновление пользовательских данных на сервере)
   function handleSubmit(ev) {
     ev.preventDefault();
-    if (isEmptyValues()) {
-      return;
-    }
     const loginData = gatherLoginData();
     onLogin(loginData, clearInputs);
   }
@@ -118,10 +83,10 @@ function Login({ onLogin, currentUserEmail }) {
             inputElements.map((input) => (
               <FormInput key={input.id}
                 {...input}
-                value={inputValues[input.name][input.name] || ""}
+                value={values[input.name] || ""}
                 inputElement={input}
-                isValidationError={inputValues[input.name].isInputError}
-                errorMessageText={inputValues[input.name].errorMessage}
+                isInputValid={isInputValid[input.name]}
+                errorMessageText={errors[input.name]}
                 onChange={handleChange} />
             ))
           }

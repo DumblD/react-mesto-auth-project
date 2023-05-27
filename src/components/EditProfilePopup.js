@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { CurrentUserContext } from './../contexts/CurrentUserContext.js';
 import { useContext } from 'react';
+import { useFormAndValidation } from '../utils/customHooks/useFormAndValidation.js';
 import PopupWithForm from './PopupWithForm.js';
 import FormInput from './FormInput.js';
-
-import {useInputNames, useToggleButtonActive, useHandleChange} from '../utils/customHooks/validationHooks.js';
 
 function EditProfilePopup({
   isOpen,
@@ -16,12 +15,7 @@ function EditProfilePopup({
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState('');
   const [about, setAbout] = useState('');
-
-  // значения для последующего использования при валидации
-  const [inputValues, setInputValues] = useState({
-    name: {name: "", isInputError: false, errorMessage: ""},
-    about: {about: "", isInputError: false, errorMessage: ""},
-  })
+  const {values, handleChange, errors, isInputValid, setValues, isSubmitButtonActive} = useFormAndValidation();
 
   // текст кнопки Submit формы
   const submitButtonText = `Сохранить`;
@@ -49,24 +43,10 @@ function EditProfilePopup({
     }
 ]
 
-  const nameInputs = useInputNames(inputElements);
-  const isSubmitButtonActive = useToggleButtonActive(nameInputs, inputValues);
-  const handleChange = useHandleChange(inputValues, setInputValues);
-
 // функция установки значений для инпутов из переменных
 // хранящие значения глобального контекста currentUser
 function setValuesToInputs() {
-  setInputValues({
-    ...inputValues,
-    name: {
-      ...inputValues.name,
-      name: name
-    },
-    about: {
-      ...inputValues.about,
-      about: about
-    }
-  });
+  setValues({ ...values, name: name, about: about });
 }
 
 //функция submit формы (обновление пользовательских данных на сервере)
@@ -74,8 +54,8 @@ function handleSubmit(ev) {
   ev.preventDefault();
 
   onUpdateUser({
-    name: inputValues.name.name,
-    about: inputValues.about.about,
+    name: values.name,
+    about: values.about
   });
 }
 
@@ -103,10 +83,10 @@ function handleSubmit(ev) {
         inputElements.map((input) => (
           <FormInput key={input.id}
           {...input}
-          value={inputValues[input.name][input.name] || ""}
+          value={values[input.name] || ""}
           inputElement={input}
-          isValidationError={inputValues[input.name].isInputError}
-          errorMessageText={inputValues[input.name].errorMessage}
+          isInputValid={isInputValid[input.name]}
+          errorMessageText={errors[input.name]}
           onChange={handleChange} />
         ))
       }

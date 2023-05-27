@@ -12,8 +12,10 @@ function FormInput({
   value,
   onChange,
   inputElement,
-  isValidationError,
+  isInputValid,
   errorMessageText,
+  pattern,
+  title
 }) {
 
   function handleCheckValidity(ev) {
@@ -25,13 +27,15 @@ function FormInput({
       <input
         type={type}
         name={name}
-        className={isValidationError? `input_type_error ${className}` : `${className}`}
+        className={typeof isInputValid === "undefined"? `${className}` : isInputValid? `${className}` : `input_type_error ${className}`}
         required={required}
         minLength={minLength}
         maxLength={maxLength}
         placeholder={placeholder}
         value={value}
         onChange={handleCheckValidity}
+        pattern={pattern? `${pattern}` : undefined}
+        title={title? `${title}` : ''}
       />
       <span className={`popup__error ${name}-error`}>{errorMessageText}</span>
     </>

@@ -1,8 +1,8 @@
-import React , { useState } from 'react';
+import React , { useEffect } from 'react';
 import PopupWithForm from './PopupWithForm.js';
 import FormInput from './FormInput.js';
 
-import {useInputNames, useToggleButtonActive, useHandleChange, useClearInputs} from '../utils/customHooks/validationHooks.js';
+import { useFormAndValidation } from '../utils/customHooks/useFormAndValidation.js';
 
 function AddPlacePopup({
   isOpen,
@@ -11,11 +11,7 @@ function AddPlacePopup({
   onAddPlace
 }) {
 
-  // значения для последующего использования при валидации
-  const [inputValues, setInputValues] = useState({
-    name: { name: "", isInputError: false, errorMessage: "" },
-    link: { link: "", isInputError: false, errorMessage: "" },
-  })
+  const {values, handleChange, errors, isInputValid, resetForm, isSubmitButtonActive} = useFormAndValidation();
 
   // текст кнопки Submit формы
   const submitButtonText = `Сохранить`;
@@ -42,28 +38,22 @@ function AddPlacePopup({
     }
   ]
 
-  // получение значения имен инпутов
-  const nameInputs = useInputNames(inputElements);
-
-  // функция установки активного состояния кнопки Submit
-  // в зависимости от наличия ошибок валидации инпутов
-  const isSubmitButtonActive = useToggleButtonActive(nameInputs, inputValues);
-  const handleChange = useHandleChange(inputValues, setInputValues);
-  const clearInputs = useClearInputs({
-    isOpen,
-    onClose,
-    inputValues,
-    setInputValues
-  });
+  const clearInputs = () => {
+    resetForm();
+  }
 
   function handleAddPlaceSubmit(ev) {
     ev.preventDefault();
 
     onAddPlace({
-      name: inputValues.name.name,
-      link: inputValues.link.link
+      name: values.name,
+      link: values.link
     })
   }
+
+  useEffect(() => {
+    clearInputs();
+  }, [isOpen]);
 
   return (
     <PopupWithForm
@@ -80,10 +70,10 @@ function AddPlacePopup({
         inputElements.map((input) => (
           <FormInput key={input.id}
             {...input}
-            value={inputValues[input.name][input.name] || ""}
+            value={values[input.name] || ""}
             inputElement={input}
-            isValidationError={inputValues[input.name].isInputError}
-            errorMessageText={inputValues[input.name].errorMessage}
+            isInputValid={isInputValid[input.name]}
+            errorMessageText={errors[input.name]}
             onChange={handleChange} />
         ))
       }
