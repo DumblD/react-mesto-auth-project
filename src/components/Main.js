@@ -21,15 +21,15 @@ function Main({
     <main>
       <section className="profile">
         <div className="profile__img-container">
-          <div className="profile__img" style={{ backgroundImage: `url(${currentUser.avatar})` }}></div>
-          <button className="profile__img-edit-button" onClick={onEditAvatar}></button>
+          <div className="profile__img" style={{ backgroundImage: `url(${currentUser.avatar})` }}/>
+          <button className="profile__img-edit-button" onClick={onEditAvatar}/>
         </div>
         <div className="profile__info">
           <h1 className="profile__name">{currentUser.name}</h1>
-          <button aria-label="редактировать профиль" type="button" className="profile__edit-button" onClick={onEditProfile}></button>
+          <button aria-label="редактировать профиль" type="button" className="profile__edit-button" onClick={onEditProfile}/>
           <p className="profile__specialty">{currentUser.about}</p>
         </div>
-        <button aria-label="добавить место" type="button" className="profile__add-button" onClick={onAddPlace}></button>
+        <button aria-label="добавить место" type="button" className="profile__add-button" onClick={onAddPlace}/>
       </section>
 
       <section className="places">

@@ -21,7 +21,7 @@ function ImagePopup({
   return (
     <div id="popupImgScaled" className={`popup popup_change_opacity ${isCardSelected? 'popup_opened' : ''}`}>
       <div className="popup__container">
-        <button type="button" className="popup__close-button" onClick={onClose}></button>
+        <button type="button" className="popup__close-button" onClick={onClose}/>
         <div className="popup__scaled-images-container scaled-images-container">
           <img src={`${popupImgLink}`} alt={`${selectedCard.name}`.toLowerCase()} className="scaled-images-container__img" />
           <h3 className="scaled-images-container__title">{selectedCard.name}</h3>

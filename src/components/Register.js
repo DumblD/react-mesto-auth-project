@@ -84,10 +84,10 @@ function Register({
   return (
     <>
       <Header
-      isMainPage={isMainPage}
-      loginRegisterButtonText={loginRegisterButtonText}
-      handleLoginRegisterButton={handleSignIn}
-      currentUserEmail={currentUserEmail}
+        isMainPage={isMainPage}
+        loginRegisterButtonText={loginRegisterButtonText}
+        handleLoginRegisterButton={handleSignIn}
+        currentUserEmail={currentUserEmail}
       />
 
       <section className="register">

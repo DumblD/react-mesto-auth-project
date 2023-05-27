@@ -41,7 +41,7 @@ function InfoTooltip({
   return (
     <div className={`info-popup ${isOpen? 'info-popup_opened' : ''}`}>
       <div className="info-popup__container">
-        <button type="button" className="popup__close-button" onClick={handleClose}></button>
+        <button type="button" className="popup__close-button" onClick={handleClose}/>
         <img src={`${popupImg}`} alt={`${altImgText}`} className="info-popup__img" />
         <div className="info-popup__title">{`${popupText}`}</div>
       </div>
