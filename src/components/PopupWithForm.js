@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import Popup from './Popup.js';
 
 function PopupWithForm({
   name,
@@ -13,16 +14,13 @@ function PopupWithForm({
 }) {
 
   return (
-    <div className={`popup popup_type_${name} ${isOpen? 'popup_opened' : ''}`}>
-      <div className="popup__container">
-        <button type="button" className="popup__close-button" onClick={onClose}/>
-        <form name={name} className="popup__form" onSubmit={onSubmit} noValidate>
-          <h3 className="popup__title">{title}</h3>
-            {children}
-            <button type="submit" disabled={!isSubmitButtonActive} className={`popup__button ${isSubmitButtonActive? '': 'popup__button_disabled'}`}>{isSubmitLoading? `${submitButtonText}…` : submitButtonText}</button>
-        </form>
-      </div>
-    </div>
+    <Popup isOpen={isOpen} onClose={onClose} name={name}>
+      <form name={name} className="popup__form" onSubmit={onSubmit} noValidate>
+        <h3 className="popup__title">{title}</h3>
+        {children}
+        <button type="submit" disabled={!isSubmitButtonActive} className={`popup__button ${isSubmitButtonActive ? '' : 'popup__button_disabled'}`}>{isSubmitLoading ? `${submitButtonText}…` : submitButtonText}</button>
+      </form>
+    </Popup>
   );
 }
 
