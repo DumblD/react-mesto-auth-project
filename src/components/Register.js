@@ -4,21 +4,12 @@ import Header from './Header.js';
 import './Register.css';
 
 import FormInput from './FormInput.js';
-import InfoTooltip from './InfoTooltip.js';
 
 import { useInputNames, useToggleButtonActive, useHandleChange } from '../utils/customHooks/validationHooks.js';
 
 function Register({
-  onRegister,
-  isRegisterSuccess,
-  isRegisterInfoPopupOpen,
-  setIsRegisterInfoPopupOpen,
-  currentUserEmail
+  onRegister
 }) {
-
-  function closeInfoPopup() {
-    setIsRegisterInfoPopupOpen(false);
-  }
 
   const [inputValues, setInputValues] = useState({
     registerEmail: { registerEmail: "", isInputError: false, errorMessage: "" },
@@ -87,7 +78,6 @@ function Register({
         isMainPage={isMainPage}
         loginRegisterButtonText={loginRegisterButtonText}
         handleLoginRegisterButton={handleSignIn}
-        currentUserEmail={currentUserEmail}
       />
 
       <section className="register">
@@ -110,7 +100,6 @@ function Register({
         </form>
         <div className="register__alreadyRegistered">Уже зарегистрированы? <button aria-label="войти" type="button" onClick={handleSignIn} className="register__login-button">Войти</button></div>
       </section>
-      <InfoTooltip isOpen={isRegisterInfoPopupOpen} onClose={closeInfoPopup} isRegisterSuccess={isRegisterSuccess} />
     </>
   );
 }
