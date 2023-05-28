@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useFormAndValidation, useInputNames } from '../utils/customHooks/useFormAndValidation.js';
+import { useFormAndValidation } from '../utils/customHooks/useFormAndValidation.js';
 import Header from './Header.js';
 import './Register.css';
 
@@ -10,7 +10,7 @@ function Register({
   onRegister
 }) {
 
-  const {values, handleChange, errors, isInputValid, isSubmitButtonActive} = useFormAndValidation();
+  const {values, handleChange, errors, isInputValid, isSubmitButtonActive, getInputNames} = useFormAndValidation();
 
   const inputElements = [
     {
@@ -35,7 +35,7 @@ function Register({
     }
   ]
 
-  const nameInputs = useInputNames(inputElements);
+  const nameInputs = getInputNames(inputElements);
   const navigate = useNavigate();
   const isMainPage = false;
   const loginRegisterButtonText = "Войти";

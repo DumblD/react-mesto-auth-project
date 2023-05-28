@@ -1,19 +1,17 @@
 import { useState, useCallback, useEffect } from 'react';
 
-// получение значения имен инпутов
-export const useInputNames = (inputElements) => {
-  const nameInputs = inputElements.map((input) => {
-    return input.name;
-  });
-  return nameInputs;
-}
-
 export function useFormAndValidation() {
     const [values, setValues] = useState({});
     const [errors, setErrors] = useState({});
     const [isInputValid, setIsInputValid] = useState(true);
     const [isFormValid, setIsFormValid] = useState(false);
     const [isSubmitButtonActive, setIsSubmitButtonActive] = useState(false);
+    const getInputNames = (inputElements) => {
+      const nameInputs = inputElements.map((input) => {
+        return input.name;
+      });
+      return nameInputs;
+    }
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -38,5 +36,5 @@ export function useFormAndValidation() {
         }
     }, [isFormValid]);
 
-    return { values, handleChange, errors, isInputValid, resetForm, setValues, setIsInputValid, isSubmitButtonActive };
+    return { values, handleChange, errors, isInputValid, resetForm, setValues, setIsInputValid, setIsSubmitButtonActive, isSubmitButtonActive, getInputNames };
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useFormAndValidation, useInputNames } from '../utils/customHooks/useFormAndValidation.js';
+import { useFormAndValidation } from '../utils/customHooks/useFormAndValidation.js';
 import Header from './Header.js';
 import './Login.css';
 
@@ -8,7 +8,7 @@ import FormInput from './FormInput.js';
 
 function Login({ onLogin, currentUserEmail }) {
 
-  const {values, handleChange, errors, isInputValid, resetForm, isSubmitButtonActive} = useFormAndValidation();
+  const {values, handleChange, errors, isInputValid, resetForm, isSubmitButtonActive, getInputNames} = useFormAndValidation();
 
   const inputElements = [
     {
@@ -32,7 +32,7 @@ function Login({ onLogin, currentUserEmail }) {
     }
   ]
 
-  const nameInputs = useInputNames(inputElements);
+  const nameInputs = getInputNames(inputElements);
   const clearInputs = () => {
     resetForm();
   }

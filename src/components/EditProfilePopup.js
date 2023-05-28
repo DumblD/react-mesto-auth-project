@@ -15,7 +15,7 @@ function EditProfilePopup({
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState('');
   const [about, setAbout] = useState('');
-  const {values, handleChange, errors, isInputValid, setValues, isSubmitButtonActive} = useFormAndValidation();
+  const {values, handleChange, errors, resetForm, isInputValid, setValues, setIsSubmitButtonActive, isSubmitButtonActive} = useFormAndValidation();
 
   // текст кнопки Submit формы
   const submitButtonText = `Сохранить`;
@@ -65,7 +65,9 @@ function handleSubmit(ev) {
   }, [currentUser]);
 
   useEffect(() => {
+    setIsSubmitButtonActive(true);
     setValuesToInputs();
+    return () => resetForm();
   }, [isOpen]);
 
   return (
